@@ -99,7 +99,7 @@ class EnvRegistry(object):
         logger.info('Making new env: %s', id)
         spec = self.spec(id)
         env = spec.make()
-        if env.spec.timestep_limit is not None:
+        if (env.spec.timestep_limit is not None) and not spec.tags.get('vnc'):
             from gym.wrappers.time_limit import TimeLimit
             env = TimeLimit(env, max_episode_steps=env.spec.timestep_limit)
         return env
